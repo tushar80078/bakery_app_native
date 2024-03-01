@@ -37,7 +37,7 @@ const ProfileScreen = ({navigation, route}) => {
 
   const checkUserIsLoggedIn = () => {
     if (!token) {
-      navigation.push('Banner', {screen: 'Profile'});
+      navigation.push('Banner');
     }
   };
 
@@ -211,7 +211,7 @@ const ProfileScreen = ({navigation, route}) => {
         <View style={styles.LoginButtonContainer}>
           <TouchableOpacity
             style={styles.ButtonTouchCont}
-            onPress={() => navigation.push('Banner', {screen: 'Profile'})}>
+            onPress={() => navigation.push('Banner')}>
             <Text style={styles.LoginText}>Login</Text>
           </TouchableOpacity>
         </View>

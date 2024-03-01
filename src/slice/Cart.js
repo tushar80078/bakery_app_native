@@ -140,18 +140,19 @@ export const cartSlice = createSlice({
           cartQuantity: 1,
         }));
 
-        // Filtering and Merging Products
-        state.cartItems = [
-          ...state.cartItems,
-          ...cartProducts.filter(
-            newProduct =>
-              !state.cartItems.some(
-                existingProduct =>
-                  existingProduct.productId === newProduct.productId,
-              ),
-          ),
-        ];
+        const updatedCartItems = [...cartProducts];
+
+        for (let i = 0; i < state.cartItems.length; i++) {
+          for (let j = 0; j < cartProducts.length; j++) {
+            if (state.cartItems[i].id != cartProducts[j].id) {
+              updatedCartItems.push(state.cartItems[i]);
+            }
+          }
+        }
+
+        state.cartItems = updatedCartItems;
       })
+
       .addCase(loginUserThunk.rejected, (state, action) => {
         state.loading = false;
       })

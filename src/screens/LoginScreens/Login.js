@@ -24,7 +24,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation, route}) => {
   const dispatch = useDispatch();
-  const screenName = route?.params?.screen;
+  const screenParams = route?.params;
   const [passwordField, setPasswordField] = useState(false);
   const [userFields, setUserFields] = useState({
     email_id: 'tusharbhosale2281@gmail.com',
@@ -46,7 +46,12 @@ const Login = ({navigation, route}) => {
           email_id: '',
           password: '',
         });
-        navigation.pop(2);
+
+        if (screenParams?.screen) {
+          navigation.replace(screenParams.screen);
+        } else {
+          navigation.pop(2);
+        }
       }
     } catch (error) {
       console.log('Error : ', error);

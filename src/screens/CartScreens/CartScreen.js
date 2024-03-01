@@ -33,11 +33,26 @@ const CartScreen = ({navigation, route}) => {
   const totalPrices = useSelector(state => state?.Cart?.totalPrice);
   const totalPayblePrice = useSelector(state => state?.Cart?.totalPayablePrice);
   const userInformation = useSelector(state => state?.User?.userInfo);
+  const token = useSelector(state => state?.User?.token);
 
   const tabBarHeight = useBottomTabBarHeight();
 
   const increaseCartItems = id => {
     dispatch(increaseCartItemQuantity({id: id}));
+    // let increasing = state?.cartItems?.filter((ele, i) => {
+    //   if (ele.id == action?.payload?.id) {
+    //     ele.cartQuantity = ele.cartQuantity + 1;
+    //     if (ele.quantity < ele.cartQuantity) {
+    //       ele.cartQuantity = ele.quantity;
+    //       return ele;
+    //     } else {
+    //       return ele;
+    //     }
+    //   } else {
+    //     return ele;
+    //   }
+    // });
+    // state.cartItems = [...increasing];
   };
 
   const decreaseCartItems = id => {
@@ -66,7 +81,7 @@ const CartScreen = ({navigation, route}) => {
     if (isLoggedIn) {
       navigation.push('Checkout');
     } else {
-      navigation.push('Banner');
+      navigation.push('Login', {screen: 'Checkout'});
     }
   };
 
@@ -141,8 +156,9 @@ const CartScreen = ({navigation, route}) => {
           {/* Button Container */}
           <TouchableOpacity
             style={styles.CheckoutButtonContainer}
-            // onPress={() => navigateToCheckout()}
-            onPress={() => setModalVisible(true)}>
+            onPress={() => navigateToCheckout()}
+            // onPress={() => setModalVisible(true)}
+          >
             <Text style={styles.CheckoutText}>Checkout</Text>
           </TouchableOpacity>
         </View>
